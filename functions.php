@@ -51,3 +51,16 @@ function updatePost($connect, $id, $data)
     $body = $data['body'];
     mysqli_query($connect, "UPDATE `posts` SET `title` = '$title', `body` = '$body' WHERE  `posts` . `id` = $id");
 }
+
+function deletePost($connect, $id) {
+    mysqli_query($connect, "DELETE FROM posts WHERE `posts`.`id` = '$id'");
+
+    http_response_code(200);
+
+    $res = [
+        "status" => true,
+        "message" => "Post is deleted"
+    ];
+
+    echo json_encode($res);
+}

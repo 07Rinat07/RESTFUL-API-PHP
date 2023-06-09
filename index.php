@@ -35,6 +35,12 @@ if ($method === 'GET') {
             updatePost($connect, $id, $data);
         }
     }
+} elseif ($method === 'DELETE') {
+    if ($type === 'posts') {
+        if (isset($id)) {
+            deletePost($connect, $id);
+        }
+    }
 }
 
 
