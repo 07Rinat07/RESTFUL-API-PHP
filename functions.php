@@ -1,6 +1,5 @@
 <?php
 
-
 function getPosts ($connect) {
     $posts = mysqli_query($connect, "SELECT * FROM  `posts`");
     $postsLists = [];
@@ -11,7 +10,7 @@ function getPosts ($connect) {
 }
 
 function getPost($connect, $id) {
-    $post = mysqli_query($connect, "SELECT * FROM  `posts` WHERE   `id` = '$id'");
+    $post = mysqli_query($connect, "SELECT * FROM  `posts` WHERE `id` = '$id'");
     $post = mysqli_fetch_assoc($post);
     echo json_encode($post);
 
@@ -29,3 +28,26 @@ function getPost($connect, $id) {
     }
 }
 
+function addPost($connect, $data)
+{
+    $title = $data['title'];
+    $body = $data['body'];
+
+    mysqli_query($connect, "INSERT INTO `posts` (`id`, `title`, `body`) VALUES (NULL, '$title', '$body')");
+
+    http_response_code(200);
+
+    $res = [
+        "status" => true,
+        "message" => "Post is updated"
+    ];
+
+    echo json_encode($res);
+}
+
+function updatePost($connect, $id, $data)
+{
+    $title = $data['title'];
+    $body = $data['body'];
+    mysqli_query($connect, "UPDATE `posts` SET `title` = '$title', `body` = '$body' WHERE  `posts` . `id` = $id");
+}
